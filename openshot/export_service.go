@@ -2,7 +2,7 @@ package openshot
 
 import (
 	"fmt"
-	"httputils"
+	"github.com/Bimde/httputils"
 )
 
 const (

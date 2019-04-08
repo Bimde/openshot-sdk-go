@@ -7,11 +7,8 @@ import (
 )
 
 const (
-	// testUsername = "demo-cloud"
-	// testPassword = "demo-password"
-
-	testUsername = "cloud-admin"
-	testPassword = "m5lKdOMATC"
+	testUsername = "demo-cloud"
+	testPassword = "demo-password"
 )
 
 var (
