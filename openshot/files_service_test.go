@@ -6,7 +6,11 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-const testFileName = "LATATA.mp4"
+const (
+	s3DefaultFilesFolder = "files/"
+	testFileName         = "LATATA.mp4"
+	s3DefaultBucket      = "fancamgenerator"
+)
 
 var sampleFile *FileUploadS3
 
@@ -66,7 +70,7 @@ func deleteSampleFile(t *testing.T, fileID int) {
 func filesSetup(t *testing.T) func(*testing.T) {
 	projectsSetup()
 	project = createSampleProject(t, project)
-	sampleFile = CreateFileStruct(testFileName)
+	sampleFile = CreateFileStruct(CreateFileS3Info(testFileName, s3DefaultFilesFolder, s3DefaultBucket))
 	return filesShutdown
 }
 

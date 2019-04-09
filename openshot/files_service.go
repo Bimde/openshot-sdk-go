@@ -5,10 +5,8 @@ import (
 )
 
 const (
-	filesEndpoint        = "/projects/%d/files/"
-	fileEndpoint         = "/files/%d/"
-	s3DefaultFilesFolder = "files/"
-	s3DefaultBucket      = "fancamgenerator"
+	filesEndpoint = "/projects/%d/files/"
+	fileEndpoint  = "/files/%d/"
 )
 
 // GetFiles returns a list of all files created for a particular project
@@ -31,19 +29,17 @@ func (o *OpenShot) CreateFile(project *Project, file *FileUploadS3) (*File, erro
 }
 
 // CreateFileStruct creates a minimum file struct required for intput to CreateFile
-func CreateFileStruct(testFileName string) *FileUploadS3 {
-	return &FileUploadS3{JSON: FileS3Info{Name: testFileName}}
+func CreateFileStruct(fileS3Info *FileS3Info) *FileUploadS3 {
+	return &FileUploadS3{JSON: *fileS3Info}
+}
+
+func CreateFileS3Info(testFileName string, folder string, bucket string) *FileS3Info {
+	return &FileS3Info{Name: testFileName, URL: folder + testFileName, Bucket: bucket}
 }
 
 func setDefaults(file *FileUploadS3, project *Project) {
 	if file.ProjectURL == "" {
 		file.ProjectURL = project.URL
-	}
-	if file.JSON.URL == "" {
-		file.JSON.URL = s3DefaultFilesFolder + file.JSON.Name
-	}
-	if file.JSON.Bucket == "" {
-		file.JSON.Bucket = s3DefaultBucket
 	}
 }
 
