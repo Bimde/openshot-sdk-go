@@ -7,9 +7,9 @@ import (
 )
 
 const (
-	s3DefaultFilesFolder = "files/"
-	testFileName         = "LATATA.mp4"
-	s3DefaultBucket      = "fancamgenerator"
+	s3DefaultFilesFolder = "video_files/"
+	testFileName         = "mini_test_file.mp4"
+	s3DefaultBucket      = "openshot-sdk-go"
 )
 
 var sampleFile *FileUploadS3
@@ -70,7 +70,7 @@ func deleteSampleFile(t *testing.T, fileID int) {
 func filesSetup(t *testing.T) func(*testing.T) {
 	projectsSetup()
 	project = createSampleProject(t, project)
-	sampleFile = CreateFileStruct(CreateFileS3Info(testFileName, s3DefaultFilesFolder, s3DefaultBucket))
+	sampleFile = CreateFileStruct(CreateFileS3InfoStruct(testFileName, s3DefaultFilesFolder, s3DefaultBucket))
 	return filesShutdown
 }
 

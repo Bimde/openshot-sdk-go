@@ -64,7 +64,7 @@ func deleteSampleExport(t *testing.T, exportID int) {
 func exportsSetup(t *testing.T) func(*testing.T) {
 	clipsSetup(t)
 	sampleClip = createSampleClip(t, project.ID, sampleClip)
-	sampleExport = CreateExportStruct(project)
+	sampleExport = CreateDefaultExportStruct(project)
 	return exportsShutdown
 }
 

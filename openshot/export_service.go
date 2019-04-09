@@ -9,6 +9,7 @@ const (
 	exportEndpoint  = "/exports/%d/"
 )
 
+// Values for default exports
 const (
 	exportType   = "video"      // video, audio, image, waveform
 	videoFormat  = "mp4"        // mp4, avi, %05d.png, jpg, etc...
@@ -49,7 +50,8 @@ func (o *OpenShot) DeleteExport(exportID int) error {
 	return o.http.Delete(log, o.exportURL(exportID), nil, nil)
 }
 
-func CreateExportStruct(project *Project) *Export {
+// CreateDefaultExportStruct creates an Export struct with default settings
+func CreateDefaultExportStruct(project *Project) *Export {
 	return &Export{
 		ExportType:   exportType,
 		VideoFormat:  videoFormat,

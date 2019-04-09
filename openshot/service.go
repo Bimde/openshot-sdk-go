@@ -1,3 +1,4 @@
+// Package openshot is a Go SDK for the OpenShot Cloud API.
 package openshot
 
 import (

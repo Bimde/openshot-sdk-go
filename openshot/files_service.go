@@ -28,12 +28,13 @@ func (o *OpenShot) CreateFile(project *Project, file *FileUploadS3) (*File, erro
 	return &createdFile, nil
 }
 
-// CreateFileStruct creates a minimum file struct required for intput to CreateFile
+// CreateFileStruct creates a minimum FileUploadS3 struct required for input to CreateFile
 func CreateFileStruct(fileS3Info *FileS3Info) *FileUploadS3 {
 	return &FileUploadS3{JSON: *fileS3Info}
 }
 
-func CreateFileS3Info(testFileName string, folder string, bucket string) *FileS3Info {
+// CreateFileS3InfoStruct creates a minimum FileS3Info struct required for input to CreateFileStruct
+func CreateFileS3InfoStruct(testFileName string, folder string, bucket string) *FileS3Info {
 	return &FileS3Info{Name: testFileName, URL: folder + testFileName, Bucket: bucket}
 }
 
