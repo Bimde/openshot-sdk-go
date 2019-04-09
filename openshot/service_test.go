@@ -9,6 +9,8 @@ import (
 const (
 	testUsername = "demo-cloud"
 	testPassword = "demo-password"
+
+	baseURL = "http://cloud.openshot.org/"
 )
 
 var (
@@ -25,7 +27,7 @@ func TestMain(m *testing.M) {
 func setup() {
 	config.Set(config.Username, testUsername)
 	config.Set(config.Password, testPassword)
-	openShot = New()
+	openShot = New(baseURL)
 }
 
 func shutdown() {

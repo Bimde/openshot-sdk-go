@@ -2,12 +2,13 @@ package openshot
 
 import (
 	"fmt"
+
 	"github.com/Bimde/httputils"
 )
 
 const (
-	exportsEndpoint = baseURL + "/projects/%d/exports/"
-	exportEndpoint  = baseURL + "/exports/%d/"
+	exportsEndpoint = "/projects/%d/exports/"
+	exportEndpoint  = "/exports/%d/"
 )
 
 const (
@@ -26,7 +27,7 @@ const (
 func (o *OpenShot) CreateExport(projectID int, input *Export) (*Export, error) {
 	log := getLogger("CreateExport")
 	var export Export
-	err := httputils.Post(log, exportsURL(projectID), input, &export)
+	err := httputils.Post(log, o.exportsURL(projectID), input, &export)
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +38,7 @@ func (o *OpenShot) CreateExport(projectID int, input *Export) (*Export, error) {
 func (o *OpenShot) GetExports(projectID int) (*Exports, error) {
 	log := getLogger("GetExports")
 	var exports Exports
-	err := httputils.Get(log, exportsURL(projectID), nil, &exports)
+	err := httputils.Get(log, o.exportsURL(projectID), nil, &exports)
 	if err != nil {
 		return nil, err
 	}
@@ -47,10 +48,10 @@ func (o *OpenShot) GetExports(projectID int) (*Exports, error) {
 // DeleteExport deletes the export from openshot
 func (o *OpenShot) DeleteExport(exportID int) error {
 	log := getLogger("DeleteExport")
-	return httputils.Delete(log, exportURL(exportID), nil, nil)
+	return httputils.Delete(log, o.exportURL(exportID), nil, nil)
 }
 
-func CreateExportStruct(projectID int) *Export {
+func CreateExportStruct(project *Project) *Export {
 	return &Export{
 		ExportType:   exportType,
 		VideoFormat:  videoFormat,
@@ -59,16 +60,16 @@ func CreateExportStruct(projectID int) *Export {
 		AudioCodec:   audioCodec,
 		AudioBitrate: audioBitrate,
 		StartFrame:   startFrame,
-		ProjectURL:   projectURL(projectID),
+		ProjectURL:   project.URL,
 		JSON:         map[string]interface{}{},
 		Status:       status,
 	}
 }
 
-func exportsURL(projectID int) string {
-	return fmt.Sprintf(exportsEndpoint, projectID)
+func (o *OpenShot) exportsURL(projectID int) string {
+	return fmt.Sprintf(o.BaseURL+exportsEndpoint, projectID)
 }
 
-func exportURL(exportID int) string {
-	return fmt.Sprintf(exportEndpoint, exportID)
+func (o *OpenShot) exportURL(exportID int) string {
+	return fmt.Sprintf(o.BaseURL+exportEndpoint, exportID)
 }

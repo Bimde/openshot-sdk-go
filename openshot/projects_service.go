@@ -26,7 +26,7 @@ func (o *OpenShot) GetProjects() (*Projects, error) {
 	log := getLogger("GetProjects")
 	var projects Projects
 
-	err := httputils.Get(log, projectsURL(), nil, &projects)
+	err := httputils.Get(log, o.projectsURL(), nil, &projects)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (o *OpenShot) CreateProject(project *Project) (*Project, error) {
 	log.Info("Creating project ", *project)
 	var createdProject Project
 
-	err := httputils.Post(log, projectsURL(), project, &createdProject)
+	err := httputils.Post(log, o.projectsURL(), project, &createdProject)
 	if err != nil {
 		return nil, err
 	}
@@ -56,15 +56,15 @@ func (o *OpenShot) CreateProject(project *Project) (*Project, error) {
 // confirmation dialog.
 func (o *OpenShot) DeleteProject(projectID int) error {
 	log := getLogger("GetProjects")
-	return httputils.Delete(log, projectURL(projectID), nil, nil)
+	return httputils.Delete(log, o.projectURL(projectID), nil, nil)
 }
 
-func projectsURL() string {
-	return baseURL + projectsEndpoint
+func (o *OpenShot) projectsURL() string {
+	return o.BaseURL + projectsEndpoint
 }
 
-func projectURL(projectID int) string {
-	return fmt.Sprintf(baseURL+projectEndpoint, projectID)
+func (o *OpenShot) projectURL(projectID int) string {
+	return fmt.Sprintf(o.BaseURL+projectEndpoint, projectID)
 }
 
 func fillDefaults(project *Project) {

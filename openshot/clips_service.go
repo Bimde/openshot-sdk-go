@@ -2,19 +2,20 @@ package openshot
 
 import (
 	"fmt"
+
 	"github.com/Bimde/httputils"
 )
 
 const (
-	clipsEndpoint = baseURL + "/projects/%d/clips/"
-	clipEndpoint  = baseURL + "/clips/%d/"
+	clipsEndpoint = "/projects/%d/clips/"
+	clipEndpoint  = "/clips/%d/"
 )
 
 // GetClips returns a list of all clips created for a particular project
 func (o *OpenShot) GetClips(projectID int) (*Clips, error) {
 	log := getLogger("GetClips")
 	var clips Clips
-	err := httputils.Get(log, clipsURL(projectID), nil, &clips)
+	err := httputils.Get(log, o.clipsURL(projectID), nil, &clips)
 	if err != nil {
 		return nil, err
 	}
@@ -25,7 +26,7 @@ func (o *OpenShot) GetClips(projectID int) (*Clips, error) {
 func (o *OpenShot) CreateClip(projectID int, clip *Clip) (*Clip, error) {
 	log := getLogger("CreateClip")
 	var createdClip Clip
-	err := httputils.Post(log, clipsURL(projectID), clip, &createdClip)
+	err := httputils.Post(log, o.clipsURL(projectID), clip, &createdClip)
 	if err != nil {
 		return nil, err
 	}
@@ -36,7 +37,7 @@ func (o *OpenShot) CreateClip(projectID int, clip *Clip) (*Clip, error) {
 func (o *OpenShot) UpdateClip(clip *Clip) (*Clip, error) {
 	log := getLogger("UpdateClip")
 	var updatedClip Clip
-	err := httputils.Put(log, clipURL(clip.ID), clip, &updatedClip)
+	err := httputils.Put(log, o.clipURL(clip.ID), clip, &updatedClip)
 	if err != nil {
 		return nil, err
 	}
@@ -47,7 +48,7 @@ func (o *OpenShot) UpdateClip(clip *Clip) (*Clip, error) {
 func (o *OpenShot) GetClip(clipID int) (*Clip, error) {
 	log := getLogger("GetClip")
 	var clip Clip
-	err := httputils.Get(log, clipURL(clipID), nil, &clip)
+	err := httputils.Get(log, o.clipURL(clipID), nil, &clip)
 	if err != nil {
 		return nil, err
 	}
@@ -57,17 +58,17 @@ func (o *OpenShot) GetClip(clipID int) (*Clip, error) {
 // DeleteClip deletes the clip from openshot
 func (o *OpenShot) DeleteClip(clipID int) error {
 	log := getLogger("DeleteClip")
-	return httputils.Delete(log, clipURL(clipID), nil, nil)
+	return httputils.Delete(log, o.clipURL(clipID), nil, nil)
 }
 
-func CreateClipStruct(fileID int, projectID int) *Clip {
-	return &Clip{FileURL: fileURL(fileID), ProjectURL: projectURL(projectID), JSON: map[string]interface{}{}}
+func CreateClipStruct(file *File, project *Project) *Clip {
+	return &Clip{FileURL: file.URL, ProjectURL: project.URL, JSON: map[string]interface{}{}}
 }
 
-func clipsURL(projectID int) string {
-	return fmt.Sprintf(clipsEndpoint, projectID)
+func (o *OpenShot) clipsURL(projectID int) string {
+	return fmt.Sprintf(o.BaseURL+clipsEndpoint, projectID)
 }
 
-func clipURL(clipID int) string {
-	return fmt.Sprintf(clipEndpoint, clipID)
+func (o *OpenShot) clipURL(clipID int) string {
+	return fmt.Sprintf(o.BaseURL+clipEndpoint, clipID)
 }
