@@ -1,6 +1,7 @@
 [![GoDoc](https://godoc.org/github.com/Bimde/openshot-sdk-go?status.svg)](https://godoc.org/github.com/Bimde/openshot-sdk-go)
 [![Build Status](https://travis-ci.com/Bimde/openshot-sdk-go.svg?branch=master)](https://travis-ci.com/Bimde/openshot-sdk-go)
 [![Go Report Card](https://goreportcard.com/badge/github.com/Bimde/openshot-sdk-go)](https://goreportcard.com/report/github.com/Bimde/openshot-sdk-go)
+[![Coverage Status](https://coveralls.io/repos/github/Bimde/openshot-sdk-go/badge.svg?branch=master)](https://coveralls.io/github/Bimde/openshot-sdk-go?branch=master)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Bimde/openshot-sdk-go/blob/master/LICENSE)
 
 # OpenShot SDK for Go
