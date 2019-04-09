@@ -1,3 +1,5 @@
+[![GoDoc](https://godoc.org/github.com/Bimde/openshot-sdk-go?status.svg)](https://godoc.org/github.com/Bimde/openshot-sdk-go)
+
 # OpenShot SDK for Go
 
 Hello! This sdk provides an easy-to-use go interface for the [OpenShot Cloud API](http://cloud.openshot.org/doc/index.html).
