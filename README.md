@@ -1,4 +1,5 @@
 [![GoDoc](https://godoc.org/github.com/Bimde/openshot-sdk-go?status.svg)](https://godoc.org/github.com/Bimde/openshot-sdk-go)
+[![Build Status](https://travis-ci.com/Bimde/openshot-sdk-go.svg?branch=master)](https://travis-ci.com/Bimde/openshot-sdk-go)
 
 # OpenShot SDK for Go
 
