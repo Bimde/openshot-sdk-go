@@ -2,8 +2,6 @@ package openshot
 
 import (
 	"fmt"
-
-	"github.com/Bimde/httputils"
 )
 
 const (
@@ -17,7 +15,7 @@ const (
 func (o *OpenShot) GetFiles(project *Project) (*Files, error) {
 	log := getLogger("GetFiles")
 	var files Files
-	httputils.Get(log, o.filesURL(project.ID), nil, &files)
+	o.http.Get(log, o.filesURL(project.ID), nil, &files)
 	return &files, nil
 }
 
@@ -28,7 +26,7 @@ func (o *OpenShot) CreateFile(project *Project, file *FileUploadS3) (*File, erro
 	log := getLogger("CreateFile")
 	setDefaults(file, project)
 	var createdFile File
-	httputils.Post(log, o.filesURL(project.ID), file, &createdFile)
+	o.http.Post(log, o.filesURL(project.ID), file, &createdFile)
 	return &createdFile, nil
 }
 
@@ -52,7 +50,7 @@ func setDefaults(file *FileUploadS3, project *Project) {
 // DeleteFile deletes the file from openshot and associated storage
 func (o *OpenShot) DeleteFile(fileID int) error {
 	log := getLogger("DeleteFile")
-	return httputils.Delete(log, o.fileURL(fileID), nil, nil)
+	return o.http.Delete(log, o.fileURL(fileID), nil, nil)
 }
 
 func (o *OpenShot) filesURL(projectID int) string {

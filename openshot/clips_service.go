@@ -2,8 +2,6 @@ package openshot
 
 import (
 	"fmt"
-
-	"github.com/Bimde/httputils"
 )
 
 const (
@@ -15,7 +13,7 @@ const (
 func (o *OpenShot) GetClips(projectID int) (*Clips, error) {
 	log := getLogger("GetClips")
 	var clips Clips
-	err := httputils.Get(log, o.clipsURL(projectID), nil, &clips)
+	err := o.http.Get(log, o.clipsURL(projectID), nil, &clips)
 	if err != nil {
 		return nil, err
 	}
@@ -26,7 +24,7 @@ func (o *OpenShot) GetClips(projectID int) (*Clips, error) {
 func (o *OpenShot) CreateClip(projectID int, clip *Clip) (*Clip, error) {
 	log := getLogger("CreateClip")
 	var createdClip Clip
-	err := httputils.Post(log, o.clipsURL(projectID), clip, &createdClip)
+	err := o.http.Post(log, o.clipsURL(projectID), clip, &createdClip)
 	if err != nil {
 		return nil, err
 	}
@@ -37,7 +35,7 @@ func (o *OpenShot) CreateClip(projectID int, clip *Clip) (*Clip, error) {
 func (o *OpenShot) UpdateClip(clip *Clip) (*Clip, error) {
 	log := getLogger("UpdateClip")
 	var updatedClip Clip
-	err := httputils.Put(log, o.clipURL(clip.ID), clip, &updatedClip)
+	err := o.http.Put(log, o.clipURL(clip.ID), clip, &updatedClip)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +46,7 @@ func (o *OpenShot) UpdateClip(clip *Clip) (*Clip, error) {
 func (o *OpenShot) GetClip(clipID int) (*Clip, error) {
 	log := getLogger("GetClip")
 	var clip Clip
-	err := httputils.Get(log, o.clipURL(clipID), nil, &clip)
+	err := o.http.Get(log, o.clipURL(clipID), nil, &clip)
 	if err != nil {
 		return nil, err
 	}
@@ -58,7 +56,7 @@ func (o *OpenShot) GetClip(clipID int) (*Clip, error) {
 // DeleteClip deletes the clip from openshot
 func (o *OpenShot) DeleteClip(clipID int) error {
 	log := getLogger("DeleteClip")
-	return httputils.Delete(log, o.clipURL(clipID), nil, nil)
+	return o.http.Delete(log, o.clipURL(clipID), nil, nil)
 }
 
 func CreateClipStruct(file *File, project *Project) *Clip {

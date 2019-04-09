@@ -2,8 +2,6 @@ package openshot
 
 import (
 	"fmt"
-
-	"github.com/Bimde/httputils"
 )
 
 const (
@@ -27,7 +25,7 @@ const (
 func (o *OpenShot) CreateExport(projectID int, input *Export) (*Export, error) {
 	log := getLogger("CreateExport")
 	var export Export
-	err := httputils.Post(log, o.exportsURL(projectID), input, &export)
+	err := o.http.Post(log, o.exportsURL(projectID), input, &export)
 	if err != nil {
 		return nil, err
 	}
@@ -38,7 +36,7 @@ func (o *OpenShot) CreateExport(projectID int, input *Export) (*Export, error) {
 func (o *OpenShot) GetExports(projectID int) (*Exports, error) {
 	log := getLogger("GetExports")
 	var exports Exports
-	err := httputils.Get(log, o.exportsURL(projectID), nil, &exports)
+	err := o.http.Get(log, o.exportsURL(projectID), nil, &exports)
 	if err != nil {
 		return nil, err
 	}
@@ -48,7 +46,7 @@ func (o *OpenShot) GetExports(projectID int) (*Exports, error) {
 // DeleteExport deletes the export from openshot
 func (o *OpenShot) DeleteExport(exportID int) error {
 	log := getLogger("DeleteExport")
-	return httputils.Delete(log, o.exportURL(exportID), nil, nil)
+	return o.http.Delete(log, o.exportURL(exportID), nil, nil)
 }
 
 func CreateExportStruct(project *Project) *Export {

@@ -2,8 +2,6 @@ package openshot
 
 import (
 	"fmt"
-
-	"github.com/Bimde/httputils"
 )
 
 const (
@@ -26,7 +24,7 @@ func (o *OpenShot) GetProjects() (*Projects, error) {
 	log := getLogger("GetProjects")
 	var projects Projects
 
-	err := httputils.Get(log, o.projectsURL(), nil, &projects)
+	err := o.http.Get(log, o.projectsURL(), nil, &projects)
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +39,7 @@ func (o *OpenShot) CreateProject(project *Project) (*Project, error) {
 	log.Info("Creating project ", *project)
 	var createdProject Project
 
-	err := httputils.Post(log, o.projectsURL(), project, &createdProject)
+	err := o.http.Post(log, o.projectsURL(), project, &createdProject)
 	if err != nil {
 		return nil, err
 	}
@@ -56,7 +54,7 @@ func (o *OpenShot) CreateProject(project *Project) (*Project, error) {
 // confirmation dialog.
 func (o *OpenShot) DeleteProject(projectID int) error {
 	log := getLogger("GetProjects")
-	return httputils.Delete(log, o.projectURL(projectID), nil, nil)
+	return o.http.Delete(log, o.projectURL(projectID), nil, nil)
 }
 
 func (o *OpenShot) projectsURL() string {
