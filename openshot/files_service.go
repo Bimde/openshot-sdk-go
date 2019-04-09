@@ -22,6 +22,7 @@ func (o *OpenShot) GetFiles(project *Project) (*Files, error) {
 // The URL (if empty) is overriden with "files/NAME"
 func (o *OpenShot) CreateFile(project *Project, file *FileUploadS3) (*File, error) {
 	log := getLogger("CreateFile")
+	log.Debug("Creating file ", *file)
 	setDefaults(file, project)
 	var createdFile File
 	o.http.Post(log, o.filesURL(project.ID), file, &createdFile)

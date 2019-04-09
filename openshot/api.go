@@ -119,11 +119,16 @@ type Property struct {
 	Points []Point `json:"Points"`
 }
 
+// Point represents a single point in animation properties. It contains the value and interpolation mode.
+// Interpolation can be set to: 0 - Bézier, 1 - Linear, or 2 - Constant
+// Read more about interpolation at http://cloud.openshot.org/doc/animation.html#key-frames
 type Point struct {
 	Co            Cord `json:"co"`
 	Interpolation int  `json:"interpolation"`
 }
 
+// Cord contains a frame number, X, and a value, Y. OpenShot will change the value of the
+// parent Property to Y by frame X, either gradually / instantly (based on the interpolation mode).
 type Cord struct {
 	X int     `json:"X"` // frame number
 	Y float64 `json:"Y"` // value

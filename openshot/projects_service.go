@@ -36,7 +36,7 @@ func (o *OpenShot) GetProjects() (*Projects, error) {
 func (o *OpenShot) CreateProject(project *Project) (*Project, error) {
 	log := getLogger("CreateProject").WithField("projectName", project.Name)
 	fillDefaults(project)
-	log.Info("Creating project ", *project)
+	log.Debug("Creating project ", *project)
 	var createdProject Project
 
 	err := o.http.Post(log, o.projectsURL(), project, &createdProject)

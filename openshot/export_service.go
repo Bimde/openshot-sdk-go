@@ -25,6 +25,7 @@ const (
 // on the OpenShot server
 func (o *OpenShot) CreateExport(projectID int, input *Export) (*Export, error) {
 	log := getLogger("CreateExport")
+	log.Debug("Creating export ", *input)
 	var export Export
 	err := o.http.Post(log, o.exportsURL(projectID), input, &export)
 	if err != nil {
