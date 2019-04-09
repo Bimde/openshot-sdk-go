@@ -1,5 +1,6 @@
 [![GoDoc](https://godoc.org/github.com/Bimde/openshot-sdk-go?status.svg)](https://godoc.org/github.com/Bimde/openshot-sdk-go)
 [![Build Status](https://travis-ci.com/Bimde/openshot-sdk-go.svg?branch=master)](https://travis-ci.com/Bimde/openshot-sdk-go)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://github.com/Bimde/openshot-sdk-go/blob/master/LICENSE)
 
 # OpenShot SDK for Go
 
