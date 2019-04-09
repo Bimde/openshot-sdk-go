@@ -60,6 +60,7 @@ func (o *OpenShot) DeleteClip(clipID int) error {
 	return o.http.Delete(log, o.clipURL(clipID), nil, nil)
 }
 
+// CreateClipStruct creates a minimum Clip struct required for input to CreateClip
 func CreateClipStruct(file *File, project *Project) *Clip {
 	return &Clip{FileURL: file.URL, ProjectURL: project.URL, JSON: map[string]interface{}{}}
 }

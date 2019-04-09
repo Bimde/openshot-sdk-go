@@ -4,8 +4,13 @@ import (
 	"github.com/mitchellh/mapstructure"
 )
 
+// Constants representing clip JSON property names
+// More details at: http://cloud.openshot.org/doc/api_endpoints.html#clips
 const (
 	LocationX = "location_x"
+)
+
+const (
 	// http://cloud.openshot.org/doc/animation.html#key-frames
 	// 0=Bézier, 1=Linear, 2=Constant
 	interpolationMode = 1

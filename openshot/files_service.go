@@ -18,8 +18,8 @@ func (o *OpenShot) GetFiles(project *Project) (*Files, error) {
 }
 
 // CreateFile adds file to openshot from location on s3. The projectURL of the
-// given file (if empty) is overriden with one matching the specified projectID.
-// The URL (if empty) is overriden with "files/NAME"
+// given file (if empty) is overridden with one matching the specified projectID.
+// The URL (if empty) is overridden with "files/NAME"
 func (o *OpenShot) CreateFile(project *Project, file *FileUploadS3) (*File, error) {
 	log := getLogger("CreateFile")
 	log.Debug("Creating file ", *file)
