@@ -7,9 +7,20 @@
 Hello! This sdk provides an easy-to-use go interface for the [OpenShot Cloud API](http://cloud.openshot.org/doc/index.html).
 
 ## Installation
-`go get github.com/Bimde/openshot-sdk-go/openshot`
+
+```
+go get github.com/Bimde/openshot-sdk-go/openshot
+```
 
 ## How to Use
 Add `import "github.com/Bimde/openshot-sdk-go/openshot"` to your file.
 
-I've yet to write up any code samples, however, since this sdk was purpose-built for [this project](https://github.com/Bimde/fancam-generator/), it's a great place to look for example usages. In particular, check out [this package](https://github.com/Bimde/fancam-generator/tree/master/backend/src/trackingconverter). The tests for this package are also quite thorough and can be used as examples.
+Create a new OpenShot client: `client := openshot.New(baseUrl, username, password)`
+
+Create a project: `project := openShot.CreateProject(&openshot.Project{Name: "My Project"})`
+
+Start adding files, clips, animations, transitions and creating exports of your work!
+
+Look at our [![GoDoc](https://godoc.org/github.com/Bimde/openshot-sdk-go?status.svg)](https://godoc.org/github.com/Bimde/openshot-sdk-go) for a complete overview of the functionality available thus far.
+
+This sdk was purpose-built for [this project](https://github.com/Bimde/fancam-generator/), it's a great place to look for example usages. In particular, check out [this package](https://github.com/Bimde/fancam-generator/tree/master/backend/src/trackingconverter). The tests for this package are also quite thorough and can be used as examples.
