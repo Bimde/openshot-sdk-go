@@ -17,7 +17,7 @@ Add `import "github.com/Bimde/openshot-sdk-go/openshot"` to your file.
 
 Create a new OpenShot client: `client := openshot.New(baseUrl, username, password)`
 
-Create a project: `project := openShot.CreateProject(&openshot.Project{Name: "My Project"})`
+Create a project: `project := client.CreateProject(&openshot.Project{Name: "My Project"})`
 
 Start adding files, clips, animations, transitions and creating exports of your work!
 
@@ -90,4 +90,4 @@ func main() {
 }
 ```
 
-This sdk was purpose-built for [this project](https://github.com/Bimde/fancam-generator/), it's a great place to look for example usages. In particular, check out [this package](https://github.com/Bimde/fancam-generator/tree/master/backend/src/trackingconverter). The tests for this package are also quite thorough and can be used as examples.
+This sdk was purpose-built for [this project](https://github.com/Bimde/fancam-generator/), it's a great place to look for example usages. In particular, check out [this package](https://github.com/Bimde/fancam-generator/tree/master/backend/src/trackingconverter). The tests in this SDK are also quite thorough and can be used as examples.
