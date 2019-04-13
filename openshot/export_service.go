@@ -23,11 +23,11 @@ const (
 
 // CreateExport triggers exporting the specified project with the given export settings
 // on the OpenShot server
-func (o *OpenShot) CreateExport(projectID int, input *Export) (*Export, error) {
+func (o *OpenShot) CreateExport(project *Project, input *Export) (*Export, error) {
 	log := getLogger("CreateExport")
 	log.Debug("Creating export ", *input)
 	var export Export
-	err := o.http.Post(log, o.exportsURL(projectID), input, &export)
+	err := o.http.Post(log, o.exportsURL(project.ID), input, &export)
 	if err != nil {
 		return nil, err
 	}
@@ -49,6 +49,17 @@ func (o *OpenShot) GetExports(projectID int) (*Exports, error) {
 func (o *OpenShot) DeleteExport(exportID int) error {
 	log := getLogger("DeleteExport")
 	return o.http.Delete(log, o.exportURL(exportID), nil, nil)
+}
+
+// GetExport gets the server version of the specified export
+func (o *OpenShot) GetExport(exportID int) (*Export, error) {
+	log := getLogger("GetExport")
+	var export Export
+	err := o.http.Get(log, o.exportURL(exportID), nil, &export)
+	if err != nil {
+		return nil, err
+	}
+	return &export, nil
 }
 
 // CreateDefaultExportStruct creates an Export struct with default settings

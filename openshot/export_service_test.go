@@ -10,19 +10,24 @@ var sampleExport *Export
 
 func TestGetExports(t *testing.T) {
 	defer exportsSetup(t)(t)
-	createdExport := createSampleExport(t, project.ID, sampleExport)
+	createdExport := createSampleExport(t, project, sampleExport)
 	defer deleteSampleExport(t, createdExport.ID)
 
 	exports := getExports(t, project.ID)
 	if exports.Count < 1 {
 		t.Error("No clips were returned")
 	}
+
+	serverExport := getExport(t, createdExport.ID)
+	if serverExport.URL != createdExport.URL || serverExport.ID != createdExport.ID {
+		t.Error("Incorrect export retreived")
+	}
 }
 
 func TestExportsCreatedAndDeleted(t *testing.T) {
 	defer exportsSetup(t)(t)
 	exports := getExports(t, project.ID)
-	createdExport := createSampleExport(t, project.ID, sampleExport)
+	createdExport := createSampleExport(t, project, sampleExport)
 
 	newExports := getExports(t, project.ID)
 	if exports.Count != newExports.Count-1 {
@@ -37,6 +42,14 @@ func TestExportsCreatedAndDeleted(t *testing.T) {
 	}
 }
 
+func getExport(t *testing.T, exportID int) *Export {
+	export, err := openShot.GetExport(exportID)
+	if err != nil {
+		t.Error("error getting export ", err)
+	}
+	return export
+}
+
 func getExports(t *testing.T, projectID int) *Exports {
 	exports, err := openShot.GetExports(projectID)
 	if err != nil {
@@ -45,8 +58,8 @@ func getExports(t *testing.T, projectID int) *Exports {
 	return exports
 }
 
-func createSampleExport(t *testing.T, projectID int, export *Export) *Export {
-	res, err := openShot.CreateExport(projectID, export)
+func createSampleExport(t *testing.T, project *Project, export *Export) *Export {
+	res, err := openShot.CreateExport(project, export)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -63,7 +76,7 @@ func deleteSampleExport(t *testing.T, exportID int) {
 
 func exportsSetup(t *testing.T) func(*testing.T) {
 	clipsSetup(t)
-	sampleClip = createSampleClip(t, project.ID, sampleClip)
+	sampleClip = createSampleClip(t, project, sampleClip)
 	sampleExport = CreateDefaultExportStruct(project)
 	return exportsShutdown
 }

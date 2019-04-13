@@ -13,7 +13,7 @@ var (
 
 func TestGetClips(t *testing.T) {
 	defer clipsSetup(t)(t)
-	createdClip := createSampleClip(t, project.ID, sampleClip)
+	createdClip := createSampleClip(t, project, sampleClip)
 	defer deleteSampleClip(t, createdClip.ID)
 
 	clips := getClips(t, project.ID)
@@ -25,7 +25,7 @@ func TestGetClips(t *testing.T) {
 func TestClipsCreatedAndDeleted(t *testing.T) {
 	defer clipsSetup(t)(t)
 	clips := getClips(t, project.ID)
-	createdClip := createSampleClip(t, project.ID, sampleClip)
+	createdClip := createSampleClip(t, project, sampleClip)
 
 	newClips := getClips(t, project.ID)
 	if clips.Count != newClips.Count-1 {
@@ -42,7 +42,7 @@ func TestClipsCreatedAndDeleted(t *testing.T) {
 
 func TestGetAndUpdateClip(t *testing.T) {
 	defer clipsSetup(t)(t)
-	createdClip := createSampleClip(t, project.ID, sampleClip)
+	createdClip := createSampleClip(t, project, sampleClip)
 	defer deleteSampleClip(t, createdClip.ID)
 
 	clip := getClip(t, createdClip.ID)
@@ -94,8 +94,8 @@ func getClip(t *testing.T, clipID int) *Clip {
 	return clip
 }
 
-func createSampleClip(t *testing.T, projectID int, clip *Clip) *Clip {
-	res, err := openShot.CreateClip(projectID, clip)
+func createSampleClip(t *testing.T, project *Project, clip *Clip) *Clip {
+	res, err := openShot.CreateClip(project, clip)
 	if err != nil {
 		t.Fatal(err)
 	}

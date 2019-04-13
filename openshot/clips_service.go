@@ -21,11 +21,11 @@ func (o *OpenShot) GetClips(projectID int) (*Clips, error) {
 }
 
 // CreateClip creates a clip for the specified project
-func (o *OpenShot) CreateClip(projectID int, clip *Clip) (*Clip, error) {
+func (o *OpenShot) CreateClip(project *Project, clip *Clip) (*Clip, error) {
 	log := getLogger("CreateClip")
 	log.Debug("Creating clip ", *clip)
 	var createdClip Clip
-	err := o.http.Post(log, o.clipsURL(projectID), clip, &createdClip)
+	err := o.http.Post(log, o.clipsURL(project.ID), clip, &createdClip)
 	if err != nil {
 		return nil, err
 	}

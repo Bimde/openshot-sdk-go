@@ -8,7 +8,7 @@ import (
 
 func TestModifyClip(t *testing.T) {
 	defer clipsSetup(t)(t)
-	createdClip := createSampleClip(t, project.ID, sampleClip)
+	createdClip := createSampleClip(t, project, sampleClip)
 	defer deleteSampleClip(t, createdClip.ID)
 
 	clip := getClip(t, createdClip.ID)
