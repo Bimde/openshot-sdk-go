@@ -91,4 +91,4 @@ func main() {
 }
 ```
 
-This sdk was purpose-built for [this project](https://github.com/Bimde/fancam-generator/), it's a great place to look for example usages. In particular, check out [this package](https://github.com/Bimde/fancam-generator/tree/master/backend/src/trackingconverter). The tests in this SDK are also quite thorough and can be used as examples.
+This sdk was purpose-built for [this project](https://github.com/Bimde/fancam-generator/), it's a great place to look for example usages. In particular, check out [this package](https://github.com/Bimde/fancam-generator/tree/master/trackingconverter). The tests in this SDK are also quite thorough and can be used as examples.
